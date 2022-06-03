@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_parse_1.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/03 17:55:52 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/03 17:55:54 by cchetana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 int     loop_matrix(char *s)
@@ -19,10 +31,10 @@ char    *read_map(t_info *info)
     char        *tmp;
 
     i = 0;
-    tmp = (char *)malloc(sizeof(char) * get_file_len(info->fdf_name) + 1);
+    tmp = (char *)malloc(sizeof(char) * get_file_len(info->map_name) + 1);
     if (!tmp)
         return (NULL);
-    fd = open(info->fdf_name, O_RDONLY);
+    fd = open(info->map_name, O_RDONLY);
     while (read(fd, &tmp[i], 1))
         i++;
     close(fd);

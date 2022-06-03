@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/05/29 23:13:57 by jinnie           ###   ########.fr       */
+/*   Updated: 2022/06/04 04:40:55 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FDF_H
 
 # include <stdio.h>
+# include <strings.h>
 
 # include <unistd.h>
 # include <stdlib.h>
@@ -21,20 +22,21 @@
 # include <math.h>
 # include "../minilibx_macos/mlx.h"
 # include "../libft/libft.h"
+# define	WIDTH_WIN 1400
+# define	HEIGHT_WIN 800
+// # define	WIDTH_WIN 1400
+// # define	HEIGHT_WIN 500
 
 typedef struct s_info
 {
 	void	*mlx;
 	void	*mlx_win;
 	void	*img;
-	char	*fdf_name;
+	char	*map_name;
 	char	*addr;
-	int		bits_per_pixel;
+	int		bpp;
 	int		line_len;
-	int		endian;
-
-	int		win_h;
-	int		win_w;
+	int		end;
 
 	int		tile_size;
 
@@ -75,5 +77,8 @@ void	put_desc(t_info *info);
 
 int     ft_isspace(char c);
 int     get_file_len(char *fdf_name);
+
+// for testing
+// void    render(t_info *info);
 
 #endif

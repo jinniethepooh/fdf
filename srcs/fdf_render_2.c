@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fdf_render_2.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/06/03 17:55:59 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/04 04:39:00 by cchetana         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "fdf.h"
 
 float     max_len(float x, float y)
@@ -21,9 +33,9 @@ void    put_Rrender(t_info *info, t_dot *dot, int x, int y)
 {
     if (x + 1 < info->col)
     {
-        dot->screen_bx = info->offset_x + (x - y) * info->tile_size;
+        dot->screen_bx = info->offset_x + (x - y) * info->tile_size * 1.5;
         dot->screen_by = info->offset_y + (x + y) * info->tile_size - info->tab[y][x];
-        dot->screen_ex = info->offset_x + (x + 1 - y) * info->tile_size;
+        dot->screen_ex = info->offset_x + (x + 1 - y) * info->tile_size * 1.5;
         dot->screen_ey = info->offset_y + (x + 1 + y) * info->tile_size - info->tab[y][x + 1];
         dot->distance = max_len(dot->screen_ex - dot->screen_bx, dot->screen_ey - dot->screen_by);
         dot->step_x = (dot->screen_ex - dot->screen_bx) / dot->distance;
@@ -32,6 +44,7 @@ void    put_Rrender(t_info *info, t_dot *dot, int x, int y)
         while ((int)(dot->screen_ey - dot->screen_by) || (int)(dot->screen_ex - dot->screen_bx))
         {
             get_pixel(info, dot->screen_bx, dot->screen_by, dot->screen_color);
+            // mlx_pixel_put(info->mlx, info->mlx_win, dot->screen_bx, dot->screen_by, dot->screen_color);
             dot->screen_bx += dot->step_x;
             dot->screen_by += dot->step_y;
         }
@@ -42,9 +55,9 @@ void    put_Brender(t_info *info, t_dot *dot, int x, int y)
 {
     if (y + 1 < info->row)
     {
-        dot->screen_bx = info->offset_x + (x - y) * info->tile_size;
+        dot->screen_bx = info->offset_x + (x - y) * info->tile_size * 1.5;
         dot->screen_by = info->offset_y + (x + y) * info->tile_size - info->tab[y][x];
-        dot->screen_ex = info->offset_x + (x - y - 1) * info->tile_size;
+        dot->screen_ex = info->offset_x + (x - y - 1) * info->tile_size * 1.5;
         dot->screen_ey = info->offset_y + (x + y + 1) * info->tile_size - info->tab[y + 1][x];
         dot->distance = max_len(dot->screen_ex - dot->screen_bx, dot->screen_ey - dot->screen_by);
         dot->step_x = (dot->screen_ex - dot->screen_bx) / dot->distance;
@@ -53,6 +66,7 @@ void    put_Brender(t_info *info, t_dot *dot, int x, int y)
         while ((int)(dot->screen_ey - dot->screen_by) || (int)(dot->screen_ex - dot->screen_bx))
         {
             get_pixel(info, dot->screen_bx, dot->screen_by, dot->screen_color);
+            // mlx_pixel_put(info->mlx, info->mlx_win, dot->screen_bx, dot->screen_by, dot->screen_color);
             dot->screen_bx += dot->step_x;
             dot->screen_by += dot->step_y;
         }
