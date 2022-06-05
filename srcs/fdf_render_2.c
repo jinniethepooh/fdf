@@ -6,7 +6,7 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:59 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/04 04:39:00 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/05 11:36:43 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ int     set_color(t_info *info, int x, int y)
         return (0xFFFFFFF); 
 }
 
-void    put_Rrender(t_info *info, t_dot *dot, int x, int y)
+void    put_Hrender(t_info *info, t_dot *dot, int x, int y)
 {
     if (x + 1 < info->col)
     {
@@ -41,17 +41,20 @@ void    put_Rrender(t_info *info, t_dot *dot, int x, int y)
         dot->step_x = (dot->screen_ex - dot->screen_bx) / dot->distance;
         dot->step_y = (dot->screen_ey - dot->screen_by) / dot->distance;
         dot->screen_color = set_color(info, x, y);
-        while ((int)(dot->screen_ey - dot->screen_by) || (int)(dot->screen_ex - dot->screen_bx))
+        while ((int)(dot->screen_ex - dot->screen_bx) || (int)(dot->screen_ex - dot->screen_bx))
+        // while (round((int)(dot->screen_ex - dot->screen_bx)) || round((int)(dot->screen_ex - dot->screen_bx)))
         {
             get_pixel(info, dot->screen_bx, dot->screen_by, dot->screen_color);
             // mlx_pixel_put(info->mlx, info->mlx_win, dot->screen_bx, dot->screen_by, dot->screen_color);
             dot->screen_bx += dot->step_x;
             dot->screen_by += dot->step_y;
         }
+        get_pixel(info, dot->screen_bx, dot->screen_by, dot->screen_color);
+        // printf("(%.2f, %.2f)\n", dot->screen_ex, dot->screen_ey);
     }
 }
 
-void    put_Brender(t_info *info, t_dot *dot, int x, int y)
+void    put_Vrender(t_info *info, t_dot *dot, int x, int y)
 {
     if (y + 1 < info->row)
     {
@@ -64,12 +67,14 @@ void    put_Brender(t_info *info, t_dot *dot, int x, int y)
         dot->step_y = (dot->screen_ey - dot->screen_by) / dot->distance;
         dot->screen_color = set_color(info, x, y);
         while ((int)(dot->screen_ey - dot->screen_by) || (int)(dot->screen_ex - dot->screen_bx))
+        // while (round((int)(dot->screen_ey - dot->screen_by)) || round((int)(dot->screen_ex - dot->screen_bx)))
         {
             get_pixel(info, dot->screen_bx, dot->screen_by, dot->screen_color);
             // mlx_pixel_put(info->mlx, info->mlx_win, dot->screen_bx, dot->screen_by, dot->screen_color);
             dot->screen_bx += dot->step_x;
             dot->screen_by += dot->step_y;
         }
+        get_pixel(info, dot->screen_bx, dot->screen_by, dot->screen_color);
     }
 }
 
@@ -85,11 +90,12 @@ void    map_render(t_info *info)
         flag_x = 0;
         while (flag_x < info->col)
         {
-            put_Rrender(info, &dot, flag_x, flag_y);
-            put_Brender(info, &dot, flag_x, flag_y);
+            put_Hrender(info, &dot, flag_x, flag_y);
+            put_Vrender(info, &dot, flag_x, flag_y);
             flag_x++;
         }
         flag_y++;
     }
-    mlx_put_image_to_window(info->mlx, info->mlx_win, info->img, info->offset_x, info->offset_y);
+    // mlx_put_image_to_window(info->mlx, info->mlx_win, info->img_ptr, info->offset_x, info->offset_y);
+    mlx_put_image_to_window(info->mlx, info->mlx_win, info->img_ptr, 0, 0);
 }

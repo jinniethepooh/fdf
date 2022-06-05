@@ -6,7 +6,7 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:25 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/04 04:42:38 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/04 22:11:48 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,13 @@ void    set_default(t_info *info, char *s)
     info->col = 0;
     info->row = 1;
     info->tile_size = 10;
+    // info->tile_size = 5;
     info->mlx_win = mlx_new_window(info->mlx, WIDTH_WIN, HEIGHT_WIN, "fdf");
-	info->img = mlx_new_image(info->mlx, WIDTH_WIN, HEIGHT_WIN);
-	info->addr = mlx_get_data_addr(info->img, &info->bpp, &info->line_len, &info->end);
+	info->img_ptr = mlx_new_image(info->mlx, WIDTH_WIN, HEIGHT_WIN);
+	info->addr = mlx_get_data_addr(info->img_ptr, &info->bpp, &info->line_len, &info->end);
     info->map_name = s;
-    info->offset_x = WIDTH_WIN / 4;
-    info->offset_y = HEIGHT_WIN / 8;
+    info->offset_x = WIDTH_WIN / 2;
+    info->offset_y = HEIGHT_WIN / 2;
 }
 
 void	put_desc(t_info *info)
@@ -61,6 +62,7 @@ void	get_pixel(t_info *info, int x, int y, int color)
 		return ;
 	dst = info->addr + (y * info->line_len + x * (info->bpp / 8));
 	*(unsigned int *)dst = color;
+
 
     // int i;
 

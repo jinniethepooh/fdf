@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_parse_1.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:52 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/03 17:55:54 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/05 13:15:49 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,12 @@ void    get_matrix_info(t_info *info)
         while (tmp[i] && tmp[i] != '\n' && x < info->col)
         {
             info->tab[y][x] = ft_atoi(&tmp[i]);
+            // printf("%c, ", tmp[i]);
+            // printf("%d, ", info->tab[y][x]);
             i += loop_matrix(&tmp[i]);
             x++;
         }
+        printf("\n");
         i++;
         y++;
     }
