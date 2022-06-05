@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:25 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/04 22:11:48 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/05 14:05:39 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,12 @@
 
 int     ft_isspace(char c)
 {
-    return (c == ' ' || c == '\n' || c == '\t');
+    return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'  || c == '\r');
+}
+
+int     ft_isvalidchar(char c)
+{
+    return (('0' <= c && c <= '9') || c == '-' || c == '+');
 }
 
 int     get_file_len(char *map_name)

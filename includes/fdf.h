@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/05 11:36:09 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/05 14:05:56 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ void	put_desc(t_info *info);
 void	recenter(t_info *info);
 
 int     ft_isspace(char c);
+int     ft_isvalidchar(char c);
 int     get_file_len(char *fdf_name);
 int		key_press(int keycode, t_info *info);
 
