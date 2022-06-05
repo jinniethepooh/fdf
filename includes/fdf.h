@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/05 14:05:56 by jinnie           ###   ########.fr       */
+/*   Updated: 2022/06/05 23:54:38 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -24,12 +23,19 @@
 # define	WIDTH_WIN 1400
 # define	HEIGHT_WIN 800
 
+//	----- FOR KEYBOARD EVENT ----- //
 # define	ESC_KEY 53
 # define	LEFT_KEY 123
 # define	RIGHT_KEY 124
 # define	UP_KEY 126
 # define	DOWN_KEY 125
 
+//	----- FOR MOUSE EVENT ----- //
+# define LEFT_CLICK 1
+# define RIGHT_CLICK 2
+# define MIDDLE_CLICK 3
+# define SCROLL_UP 4
+# define SCROLL_DOWN 5
 
 typedef struct s_info
 {
@@ -37,6 +43,7 @@ typedef struct s_info
 	void	*mlx_win;
 	void	*img_ptr;
 	char	*map_name;
+
 	char	*addr;
 	int		bpp;
 	int		line_len;
@@ -49,11 +56,6 @@ typedef struct s_info
 	int		offset_x;
 	int		offset_y;
 	int		**tab;
-
-	// /*	COORDINATE */
-	// float		x;
-	// float		y;
-	// float		z;
 	
 	// double		angle;
 	
@@ -82,7 +84,12 @@ void	recenter(t_info *info);
 
 int     ft_isspace(char c);
 int     ft_isvalidchar(char c);
+
 int     get_file_len(char *fdf_name);
+int     set_color(t_info *info, int x, int y);
+
 int		key_press(int keycode, t_info *info);
+int		mouse_press(int mousecode, t_info *info);
+int		close_window(t_info *info);
 
 #endif
