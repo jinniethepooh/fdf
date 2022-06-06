@@ -6,7 +6,7 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/05 23:54:38 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/06 07:59:00 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # define	HEIGHT_WIN 800
 
 //	----- FOR KEYBOARD EVENT ----- //
+# define	PLUS_KEY 27
+# define	MINUS_KEY 24
 # define	ESC_KEY 53
 # define	LEFT_KEY 123
 # define	RIGHT_KEY 124
@@ -56,6 +58,8 @@ typedef struct s_info
 	int		offset_x;
 	int		offset_y;
 	int		**tab;
+
+	float	z_scale;
 	
 	// double		angle;
 	
@@ -81,6 +85,7 @@ void	get_pixel(t_info *info, int x, int y, int color);
 void    map_render(t_info *info);
 void	put_desc(t_info *info);
 void	recenter(t_info *info);
+void    clear_image(t_info *info);
 
 int     ft_isspace(char c);
 int     ft_isvalidchar(char c);

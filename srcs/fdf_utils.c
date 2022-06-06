@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:25 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/05 14:05:39 by jinnie           ###   ########.fr       */
+/*   Updated: 2022/06/06 07:50:50 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ void    set_default(t_info *info, char *s)
     info->col = 0;
     info->row = 1;
     info->tile_size = 10;
-    // info->tile_size = 5;
+    info->z_scale = 1;
     info->mlx_win = mlx_new_window(info->mlx, WIDTH_WIN, HEIGHT_WIN, "fdf");
 	info->img_ptr = mlx_new_image(info->mlx, WIDTH_WIN, HEIGHT_WIN);
 	info->addr = mlx_get_data_addr(info->img_ptr, &info->bpp, &info->line_len, &info->end);

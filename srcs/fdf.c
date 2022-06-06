@@ -6,7 +6,7 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:50:58 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/06 00:01:11 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/06 08:02:52 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,8 @@ int	main(int argc, char **argv)
 	matrix_init(&info);
 	recenter(&info);
 	map_render(&info);
-	mlx_key_hook(info.mlx_win, key_press, &info);
 	mlx_mouse_hook(info.mlx_win, mouse_press, &info);
+	mlx_key_hook(info.mlx_win, key_press, &info);
 	mlx_hook(info.mlx_win, 17, 1L<<0, close_window, &info);
 	mlx_loop(info.mlx);
 	free(info.tab);

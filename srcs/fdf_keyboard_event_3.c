@@ -6,16 +6,15 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 23:41:48 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/05 23:54:13 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/06 08:02:09 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-#include <strings.h>
 
 void    clear_image(t_info *info)
 {
-    bzero(info->addr, info->bpp / 8 * WIDTH_WIN * HEIGHT_WIN);
+    ft_bzero(info->addr, info->bpp / 8 * WIDTH_WIN * HEIGHT_WIN);
 }
 
 int close_window(t_info *info)
@@ -37,6 +36,10 @@ int key_press(int keycode, t_info *info)
         info->offset_y -= 10;
     if (keycode == DOWN_KEY)
         info->offset_y += 10;
+    if (keycode == PLUS_KEY)
+        info->z_scale -= 0.25;
+    if (keycode == MINUS_KEY)
+        info->z_scale += 0.25;
     clear_image(info);
     mlx_clear_window(info->mlx, info->mlx_win);
     map_render(info);
