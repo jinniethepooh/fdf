@@ -6,7 +6,7 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 23:41:48 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/06 08:02:09 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/06 13:11:44 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,12 @@ int key_press(int keycode, t_info *info)
         info->z_scale -= 0.25;
     if (keycode == MINUS_KEY)
         info->z_scale += 0.25;
+    // if (keycode == SCROLL_UP)
+    //     info->tile_size += 1;
+    // // detect zero
+    // if (keycode == SCROLL_DOWN)
+    //     if (info->tile_size > 0)
+    //         info->tile_size -= 1;
     clear_image(info);
     mlx_clear_window(info->mlx, info->mlx_win);
     map_render(info);

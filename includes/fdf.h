@@ -6,7 +6,7 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/06 07:59:00 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/06 13:20:54 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define	RIGHT_KEY 124
 # define	UP_KEY 126
 # define	DOWN_KEY 125
+// # define 	SCROLL_UP 33
+// # define 	SCROLL_DOWN 30
 
 //	----- FOR MOUSE EVENT ----- //
 # define LEFT_CLICK 1
@@ -94,7 +96,7 @@ int     get_file_len(char *fdf_name);
 int     set_color(t_info *info, int x, int y);
 
 int		key_press(int keycode, t_info *info);
-int		mouse_press(int mousecode, t_info *info);
+int		mouse_press(int mousecode, int x, int y, t_info *info);
 int		close_window(t_info *info);
 
 #endif
