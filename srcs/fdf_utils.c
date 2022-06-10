@@ -3,24 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:25 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/06 07:50:50 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/09 02:03:13 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int     ft_isspace(char c)
-{
-    return (c == ' ' || c == '\t' || c == '\n' || c == '\v' || c == '\f'  || c == '\r');
-}
-
-int     ft_isvalidchar(char c)
-{
-    return (('0' <= c && c <= '9') || c == '-' || c == '+');
-}
 
 int     get_file_len(char *map_name)
 {
@@ -36,13 +26,29 @@ int     get_file_len(char *map_name)
     return (len);
 }
 
+void recenter(t_info *info)
+{
+    int   delta_x;
+    int   delta_y;
+
+    delta_x = (info->col - info->row) * info->tile_size * 1.5;
+    delta_y = (info->col + info->row) * info->tile_size - \
+                (info->tab[info->row - 1][info->col - 1] - info->tab[0][0]);
+    info->offset_x = info->offset_x - (delta_x / 2);
+    info->offset_y = info->offset_y - (delta_y / 2);
+}
+
 void    set_default(t_info *info, char *s)
 {
+    ft_isvalidfd(s);
     info->mlx = mlx_init();
     info->col = 0;
     info->row = 1;
     info->tile_size = 10;
     info->z_scale = 1;
+    info->mode = 1.5;
+    info->angleH = 90;
+    info->angleV = 0;
     info->mlx_win = mlx_new_window(info->mlx, WIDTH_WIN, HEIGHT_WIN, "fdf");
 	info->img_ptr = mlx_new_image(info->mlx, WIDTH_WIN, HEIGHT_WIN);
 	info->addr = mlx_get_data_addr(info->img_ptr, &info->bpp, &info->line_len, &info->end);
@@ -67,14 +73,4 @@ void	get_pixel(t_info *info, int x, int y, int color)
 		return ;
 	dst = info->addr + (y * info->line_len + x * (info->bpp / 8));
 	*(unsigned int *)dst = color;
-
-
-    // int i;
-
-	// i = (y * info->line_len) + (x * (info->bpp / 8));
-    // info->addr[i] = color;
-    // info->addr[i + 1] = color >> 8;
-    // info->addr[i + 2] = color >> 16;
-    // info->addr[i + 3] = 0;
-    // ((int *)info->addr)[(y * WIDTH_WIN) + x] = color;
 }
