@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_render_utils_3.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 02:46:19 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 03:07:03 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:14:26 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,13 @@ void	get_distance(t_dot *dot)
 
 void	apply_angle(t_info *info, t_dot *dot)
 {
-	dot->screen_bx = info->offset_x + (sin(info->angleH * M_PI / 180) * \
+	dot->screen_bx = info->offset_x + (sin(info->angle_h * M_PI / 180) * \
 			dot->screen_bx);
-	dot->screen_by = info->offset_y + (cos(info->angleV * M_PI / 180) * \
+	dot->screen_by = info->offset_y + (cos(info->angle_v * M_PI / 180) * \
 			dot->screen_by);
-	dot->screen_ex = info->offset_x + (sin(info->angleH * M_PI / 180) * \
+	dot->screen_ex = info->offset_x + (sin(info->angle_h * M_PI / 180) * \
 			dot->screen_ex);
-	dot->screen_ey = info->offset_y + (cos(info->angleV * M_PI / 180) * \
+	dot->screen_ey = info->offset_y + (cos(info->angle_v * M_PI / 180) * \
 			dot->screen_ey);
 }
 

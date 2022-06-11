@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 03:31:41 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:58:12 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include "../minilibx_macos/mlx.h"
 # include "../libft/libft.h"
 
+//	----- DEFAULT RESOLUTION ----- //
 # define WIDTH_WIN 1400
 # define HEIGHT_WIN 800
 
@@ -50,10 +51,10 @@ typedef struct s_info
 {
 	void	*mlx;
 	void	*mlx_win;
-	void	*img_ptr;
 	char	*map_name;
 
-	char	*addr;
+	void	*img_ptr;
+	char	*img_px_addr;
 	int		bpp;
 	int		line_len;
 	int		end;
@@ -66,6 +67,7 @@ typedef struct s_info
 	int		offset_x;
 	int		offset_y;
 	int		**tab;
+	int		**tabc;
 
 	float	z_scale;	
 	double	angle_h;
@@ -87,8 +89,12 @@ typedef struct s_dot
 	char	dir;
 }	t_dot;
 
-void	set_default(t_info *info, char *s);
+void	set_info(t_info *info, char *s);
+
 void	matrix_init(t_info *info);
+int	loop_matrix(char *s);
+void	free_matrix(t_info *info, int index);
+
 void	get_pixel(t_info *info, int x, int y, int color);
 void	map_render(t_info *info);
 void	put_desc(t_info *info);
@@ -110,8 +116,15 @@ int		key_press(int keycode, t_info *info);
 int		mouse_press(int mousecode, int x, int y, t_info *info);
 int		close_window(t_info *info);
 
-// message
+// ----- ERROR MESSAGE ----- //
 void	error_msg_input_missing(void);
 void	error_msg_invalid_fd(void);
+void	error_msg_mlx(void);
+void	error_msg_img(void);
+void	error_msg_matrix(void);
+
+// ----- FREE ----- //
+void    free_mlx_win(t_info *info);
+void    free_img(t_info *info);
 
 #endif

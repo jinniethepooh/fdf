@@ -1,28 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_parse_1.c                                      :+:      :+:    :+:   */
+/*   fdf_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:52 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 03:13:55 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/11 17:56:08 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
-
-int	loop_matrix(char *s)
-{
-	int	i;
-
-	i = 0;
-	while (s[i] && !ft_isspace(s[i]) && s[i] != '\n')
-		i++;
-	while (s[i] && ft_isspace(s[i]) && s[i] != '\n')
-		i++;
-	return (i);
-}
 
 char	*read_map(t_info *info)
 {
@@ -47,11 +35,16 @@ void	matrix_realloc(t_info *info)
 
 	info->tab = (int **)malloc(sizeof(int *) * info->row);
 	if (!info->tab)
-		return ;
+		error_msg_matrix();
 	i = 0;
 	while (i < info->row)
 	{
 		info->tab[i] = (int *)malloc(sizeof(int) * info->col);
+		if (!info->tab[i])
+		{
+			free_matrix(info, i);
+			error_msg_matrix();
+		}
 		i++;
 	}
 }
@@ -111,4 +104,5 @@ void	matrix_init(t_info *info)
 	get_matrix_row_col(info);
 	matrix_realloc(info);
 	get_matrix_info(info);
+	recenter(info);
 }
