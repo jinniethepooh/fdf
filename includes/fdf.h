@@ -6,7 +6,7 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 17:58:12 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:51:45 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,32 +89,32 @@ typedef struct s_dot
 	char	dir;
 }	t_dot;
 
+// ----- SET INFORMATION ----- //
 void	set_info(t_info *info, char *s);
-
 void	matrix_init(t_info *info);
-int	loop_matrix(char *s);
-void	free_matrix(t_info *info, int index);
 
+void	put_desc(t_info *info);
+int		loop_matrix(char *s);
+int		get_file_len(char *fdf_name);
+
+// ----- RENDER ----- //
+float	max_len(float x, float y);
 void	get_pixel(t_info *info, int x, int y, int color);
 void	map_render(t_info *info);
-void	put_desc(t_info *info);
 void	recenter(t_info *info);
 void	clear_image(t_info *info);
+void	get_distance(t_dot *dot);
+void	get_render_info(t_info *info, t_dot *dot, char axis);
+int		set_color(t_info *info, int x, int y);
 
+// ----- VALID CHECKER ----- //
 int		ft_isspace(char c);
 int		ft_isvalidchar(char c);
 void	ft_isvalidfd(char *s);
 
-int		get_file_len(char *fdf_name);
-int		set_color(t_info *info, int x, int y);
-
-float	max_len(float x, float y);
-void	get_distance(t_dot *dot);
-void	get_render_info(t_info *info, t_dot *dot, char axis);
-
+// ----- EVENT ----- //
 int		key_press(int keycode, t_info *info);
 int		mouse_press(int mousecode, int x, int y, t_info *info);
-int		close_window(t_info *info);
 
 // ----- ERROR MESSAGE ----- //
 void	error_msg_input_missing(void);
@@ -124,7 +124,9 @@ void	error_msg_img(void);
 void	error_msg_matrix(void);
 
 // ----- FREE ----- //
-void    free_mlx_win(t_info *info);
-void    free_img(t_info *info);
+void	free_mlx_win(t_info *info);
+void	free_img(t_info *info);
+void	free_matrix(t_info *info, int index);
+int		close_window(t_info *info);
 
 #endif

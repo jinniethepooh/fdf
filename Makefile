@@ -6,7 +6,7 @@
 #    By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 00:17:44 by cchetana          #+#    #+#              #
-#    Updated: 2022/06/11 18:37:50 by cchetana         ###   ########.fr        #
+#    Updated: 2022/06/11 19:00:21 by cchetana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,19 +20,18 @@ SRCS		= srcs/*.c \
 OBJS		= $(SRCS:.c=.o)
 INCLUDES	= minilibx_macos/libmlx.a \
 			  libft/libft.a
-CFLAGS		= -Wall -Werror -Wextra -g
+CFLAGS		= gcc -Wall -Werror -Wextra -g
 
 all: $(NAME)
 
 $(NAME):
 	@make -C minilibx_macos/ --silent
 	@make -C libft/ --silent
-	$(CFLAGS) $^ -I includes $(SRCS) -o $(NAME) $(INCLUDES) $(FRAMEWORKS) 
+	$(CFLAGS) $^ -I includes $(SRCS) -o $(NAME) $(INCLUDES) $(FRAMEWORKS)
+	@echo "/// ----- fdf is served ----- ///"
 
 $(OBJS)%.o: $(SRCS)%.c
 	$(CC) $(CFLAGS) -c $< $(INCLUDES) -o $@
-	# @gcc -I includes $(SRCS) -o $(NAME) $(INCLUDES) $(FRAMEWORKS) -g
-	@echo "/// ----- fdf is served ----- ///"
 
 clean:
 	@make -C libft/ clean --silent

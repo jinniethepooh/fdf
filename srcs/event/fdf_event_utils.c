@@ -6,7 +6,7 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 22:05:43 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 17:51:19 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/11 18:50:29 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	clear_image(t_info *info)
 
 int	close_window(t_info *info)
 {
-	mlx_destroy_image(info->mlx, info->img_ptr);
-	mlx_destroy_window(info->mlx, info->mlx_win);
 	free_matrix(info, info->row - 1);
 	exit(0);
 }
