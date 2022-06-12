@@ -6,13 +6,14 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 18:51:45 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/12 04:43:02 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
+# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -80,6 +81,8 @@ typedef struct s_dot
 	float	screen_by;
 	float	screen_ex;
 	float	screen_ey;
+	float	tmp_x;
+	float	tmp_y;
 	int		flag_x;
 	int		flag_y;
 	float	distance;
@@ -89,11 +92,19 @@ typedef struct s_dot
 	char	dir;
 }	t_dot;
 
+typedef struct s_counter
+{
+	int		x;
+	int		y;
+	int		i;
+	char	*tmp;
+}	t_counter;
+
 // ----- SET INFORMATION ----- //
 void	set_info(t_info *info, char *s);
 void	matrix_init(t_info *info);
 
-void	put_desc(t_info *info);
+void	projection_menu_selector(t_info *info);
 int		loop_matrix(char *s);
 int		get_file_len(char *fdf_name);
 
@@ -101,6 +112,7 @@ int		get_file_len(char *fdf_name);
 float	max_len(float x, float y);
 void	get_pixel(t_info *info, int x, int y, int color);
 void	map_render(t_info *info);
+void    map_render2d(t_info *info);
 void	recenter(t_info *info);
 void	clear_image(t_info *info);
 void	get_distance(t_dot *dot);
@@ -119,9 +131,9 @@ int		mouse_press(int mousecode, int x, int y, t_info *info);
 // ----- ERROR MESSAGE ----- //
 void	error_msg_input_missing(void);
 void	error_msg_invalid_fd(void);
-void	error_msg_mlx(void);
-void	error_msg_img(void);
-void	error_msg_matrix(void);
+void	error_msg_mlx(t_info *info);
+void	error_msg_img(t_info *info);
+void	error_msg_matrix(t_info *info, int index);
 
 // ----- FREE ----- //
 void	free_mlx_win(t_info *info);

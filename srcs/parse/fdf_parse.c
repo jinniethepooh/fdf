@@ -6,7 +6,7 @@
 /*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:52 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 17:56:08 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/11 23:20:52 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,28 +35,25 @@ void	matrix_realloc(t_info *info)
 
 	info->tab = (int **)malloc(sizeof(int *) * info->row);
 	if (!info->tab)
-		error_msg_matrix();
+		error_msg_matrix(info, -1);
 	i = 0;
 	while (i < info->row)
 	{
 		info->tab[i] = (int *)malloc(sizeof(int) * info->col);
 		if (!info->tab[i])
-		{
-			free_matrix(info, i);
-			error_msg_matrix();
-		}
+			error_msg_matrix(info, i);
 		i++;
 	}
 }
 
-void	get_matrix_row_col(t_info *info)
+char	*get_matrix_row_col(t_info *info)
 {
 	int		i;
 	char	*tmp;
 
 	tmp = read_map(info);
 	if (!tmp)
-		return ;
+		return (NULL);
 	i = 0;
 	while (tmp[i] && tmp[i] != '\n')
 	{
@@ -67,36 +64,33 @@ void	get_matrix_row_col(t_info *info)
 	while (tmp[i++])
 		if (tmp[i] == '\n')
 			info->row++;
-	free(tmp);
+	return (tmp);
 }
 
 void	get_matrix_info(t_info *info)
 {
-	int		x;
-	int		y;
-	int		i;
-	char	*tmp;
+	t_counter	tmp;
 
-	tmp = read_map(info);
-	if (!tmp)
-		return ;
-	i = 0;
-	y = 0;
-	while (tmp[i] && y < info->row)
+	tmp.tmp = read_map(info);
+	if (!tmp.tmp)
+		error_msg_matrix(info, -1);
+	tmp.i = 0;
+	tmp.y = 0;
+	while (tmp.tmp[tmp.i] && tmp.y < info->row)
 	{
-		x = 0;
-		while (tmp[i] && tmp[i] != '\n' && x < info->col)
+		tmp.x = 0;
+		while (tmp.tmp[tmp.i] && tmp.tmp[tmp.i] != '\n' && tmp.x < info->col)
 		{
-			if (ft_isspace(tmp[i]) || !ft_isvalidchar(tmp[i]))
-				i++;
-			info->tab[y][x] = ft_atoi(&tmp[i]);
-			i += loop_matrix(&tmp[i]);
-			x++;
+			if (ft_isspace(tmp.tmp[tmp.i]) || !ft_isvalidchar(tmp.tmp[tmp.i]))
+				tmp.i++;
+			info->tab[tmp.y][tmp.x] = ft_atoi(&tmp.tmp[tmp.i]);
+			tmp.i += loop_matrix(&tmp.tmp[tmp.i]);
+			tmp.x++;
 		}
-		i++;
-		y++;
+		tmp.i++;
+		tmp.y++;
 	}
-	free(tmp);
+	free(tmp.tmp);
 }
 
 void	matrix_init(t_info *info)
