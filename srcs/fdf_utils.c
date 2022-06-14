@@ -3,26 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:25 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/12 19:43:07 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/14 23:33:49 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	recenter(t_info *info)
+void	fdf_instruction(t_info *info)
 {
-	int	delta_x;
-	int	delta_y;
-
-	delta_x = (info->col - info->row) * info->tile_size * 1.5;
-	delta_y = (info->col + info->row) * info->tile_size - \
-		(info->tab[info->row - 1][info->col - 1] - info->tab[0][0]);
-	info->offset_x = (WIDTH_WIN - delta_x) / 2;
-	info->offset_y = (HEIGHT_WIN - delta_y) / 2;
+	mlx_string_put(info->mlx, info->mlx_win, 5, 25, 0xFFFFFF, "=== FDF ===");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 50, 0xFFFFFF, "MODE:");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 75, 0xFFFFFF, "i (iso), p (parallel)");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 100, 0xFFFFFF, "MOVE: arrow - up, left, right, down");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 125, 0xFFFFFF, "ZOOM: scroll mouse");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 150, 0xFFFFFF, "ROTATE:");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 175, 0xFFFFFF, "left - a, right - d,");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 200, 0xFFFFFF, "up - w, down - s");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 220, 0xFFFFFF, "RESET: r");
 }
+
 
 void	set_img(t_info *info)
 {
@@ -49,10 +51,24 @@ void	set_info(t_info *info, char *s)
 	info->tile_size = 10;
 	info->z_scale = 1;
 	info->mode = 1.5;
-	info->angle_h = -M_PI / 3;
-	info->angle_v = -M_PI / 3;
+	info->angle = M_PI / 3;
+	info->angle_v = 0;
 	info->map_name = s;
+	info->accum_x = 0;
+	info->accum_y = 0;
 	set_img(info);
+}
+
+void	reset_info(t_info *info)
+{
+	info->tile_size = 10;
+	info->z_scale = 1;
+	info->mode = 1.5;
+	info->angle = M_PI / 3;
+	info->angle_v = 0;
+	info->accum_x = 0;
+	info->accum_y = 0;
+	recenter(info);
 }
 
 void	get_pixel(t_info *info, int x, int y, int color)

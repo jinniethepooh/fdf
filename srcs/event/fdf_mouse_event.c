@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_mouse_event.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/05 23:37:28 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/12 02:57:19 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/14 22:47:08 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ int	mouse_press(int mousecode, int x, int y, t_info *info)
 
 	tmp = x;
 	tmp = y;
+	(void)tmp;
 	if (mousecode == EXIT_CLICK)
 		close_window(info);
 	if (mousecode == SCROLL_UP)
@@ -29,6 +30,5 @@ int	mouse_press(int mousecode, int x, int y, t_info *info)
 	clear_image(info);
 	mlx_clear_window(info->mlx, info->mlx_win);
 	map_render(info);
-	projection_menu_selector(info);
 	return (0);
 }

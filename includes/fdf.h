@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/12 04:43:02 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/15 01:18:22 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define WIDTH_WIN 1400
 # define HEIGHT_WIN 800
 
+
 //	----- FOR KEYBOARD EVENT ----- //
 # define ESC_KEY 53
 # define PLUS_KEY 27
@@ -39,6 +40,10 @@
 # define RIGHT_KEY 124
 # define UP_KEY 126
 # define DOWN_KEY 125
+# define RESET_KEY 15
+# define TWOD_KEY 19
+# define THREED_KEY 20
+
 
 //	----- FOR MOUSE EVENT ----- //
 # define LEFT_CLICK 1
@@ -67,11 +72,13 @@ typedef struct s_info
 	int		row;
 	int		offset_x;
 	int		offset_y;
+	int		accum_x;
+	int		accum_y;
 	int		**tab;
 	int		**tabc;
 
 	float	z_scale;	
-	double	angle_h;
+	double	angle;
 	double	angle_v;
 }	t_info;
 
@@ -102,9 +109,10 @@ typedef struct s_counter
 
 // ----- SET INFORMATION ----- //
 void	set_info(t_info *info, char *s);
+void	reset_info(t_info *info);
 void	matrix_init(t_info *info);
 
-void	projection_menu_selector(t_info *info);
+void	fdf_instruction(t_info *info);
 int		loop_matrix(char *s);
 int		get_file_len(char *fdf_name);
 
@@ -112,12 +120,12 @@ int		get_file_len(char *fdf_name);
 float	max_len(float x, float y);
 void	get_pixel(t_info *info, int x, int y, int color);
 void	map_render(t_info *info);
-void    map_render2d(t_info *info);
 void	recenter(t_info *info);
+void	apply_offset(t_info *info, t_dot *dot);
 void	clear_image(t_info *info);
 void	get_distance(t_dot *dot);
 void	get_render_info(t_info *info, t_dot *dot, char axis);
-int		set_color(t_info *info, int x, int y);
+int		set_color(t_info *info, t_dot *dot, int x, int y);
 
 // ----- VALID CHECKER ----- //
 int		ft_isspace(char c);

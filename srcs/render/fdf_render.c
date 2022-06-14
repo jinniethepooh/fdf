@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_render_2.c                                     :+:      :+:    :+:   */
+/*   fdf_render.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:59 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 17:14:09 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/15 01:26:25 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	put_hrender(t_info *info, t_dot *dot)
+static void	put_hrender(t_info *info, t_dot *dot)
 {
 	if (dot->flag_x + 1 < info->col)
 	{
 		get_render_info(info, dot, 'H');
 		get_distance(dot);
-		dot->screen_color = set_color(info, dot->flag_x, dot->flag_y);
 		while ((int)(dot->screen_ex - dot->screen_bx) || \
-				(int)(dot->screen_ex - dot->screen_bx))
+				(int)(dot->screen_ey - dot->screen_by))
 		{
+			dot->screen_color = set_color(info, dot, dot->flag_x, dot->flag_y);
 			get_pixel(info, dot->screen_bx, dot->screen_by, \
 					dot->screen_color);
 			dot->screen_bx += dot->step_x;
@@ -32,16 +32,16 @@ void	put_hrender(t_info *info, t_dot *dot)
 	}
 }
 
-void	put_vrender(t_info *info, t_dot *dot)
+static void	put_vrender(t_info *info, t_dot *dot)
 {
 	if (dot->flag_y + 1 < info->row)
 	{
 		get_render_info(info, dot, 'V');
 		get_distance(dot);
-		dot->screen_color = set_color(info, dot->flag_x, dot->flag_y);
 		while ((int)(dot->screen_ey - dot->screen_by) || \
 				(int)(dot->screen_ex - dot->screen_bx))
 		{
+			dot->screen_color = set_color(info, dot, dot->flag_x, dot->flag_y);
 			get_pixel(info, dot->screen_bx, dot->screen_by, \
 					dot->screen_color);
 			dot->screen_bx += dot->step_x;
@@ -70,4 +70,5 @@ void	map_render(t_info *info)
 	}
 	mlx_put_image_to_window(info->mlx, info->mlx_win, \
 			info->img_ptr, 0, 0);
+	fdf_instruction(info);
 }

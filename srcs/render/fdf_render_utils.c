@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_render_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/11 02:46:19 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/12 20:20:37 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/15 00:51:24 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,92 +27,48 @@ void	get_distance(t_dot *dot)
 	dot->step_y = (dot->screen_ey - dot->screen_by) / dot->distance;
 }
 
-void	apply_angle(t_info *info, t_dot *dot)
+void	apply_offset(t_info *info, t_dot *dot)
 {
-	dot->screen_bx = info->offset_x + (cos(info->angle_h) * dot->screen_bx);
-	dot->screen_by = info->offset_y + (sin(info->angle_v) * dot->screen_by);
-	dot->screen_ex = info->offset_x + (cos(info->angle_h) * dot->screen_ex);
-	dot->screen_ey = info->offset_y + (sin(info->angle_v) * dot->screen_ey);	
+	dot->screen_bx += (info->offset_x + info->accum_x);
+	dot->screen_by += (info->offset_y + info->accum_y);
+	dot->screen_ex += (info->offset_x + info->accum_x);
+	dot->screen_ey += (info->offset_y + info->accum_y);
 }
 
-// void	get_render_info(t_info *info, t_dot *dot, char axis)
-// {
-// 	dot->screen_bx = (dot->flag_x - dot->flag_y) * info->tile_size * info->mode;
-// 	dot->screen_by = (dot->flag_x + dot->flag_y) * info->tile_size - \
-// 			(info->tab[dot->flag_y][dot->flag_x] * info->z_scale);
-// 	if (axis == 'H')
-// 	{
-// 		dot->screen_ex = (dot->flag_x + 1 - dot->flag_y) * \
-// 				info->tile_size * info->mode;
-// 		dot->screen_ey = (dot->flag_x + 1 + dot->flag_y) * \
-// 				info->tile_size - \
-// 				(info->tab[dot->flag_y][dot->flag_x + 1] * \
-// 				info->z_scale);
-// 	}
-// 	else if (axis == 'V')
-// 	{
-// 		dot->screen_ex = (dot->flag_x - dot->flag_y - 1) * \
-// 				info->tile_size * info->mode;
-// 		dot->screen_ey = (dot->flag_x + dot->flag_y + 1) * \
-// 				info->tile_size - \
-// 				(info->tab[dot->flag_y + 1][dot->flag_x] * \
-// 				info->z_scale);
-// 	}
-// 	apply_angle(info, dot);
-// }
+float	get_adj_coord(int flag_x, int flag_y, t_info *info, char coord)
+{
+	float	x;
+	float	y;
 
-// ----- FOR 2D ----- //
-// void	get_render_info(t_info *info, t_dot *dot, char axis)
-// {
-	// info->tile_size *= 2;
-// 	dot->screen_bx = dot->flag_x * info->tile_size;
-// 	dot->screen_by = (dot->flag_y * info->tile_size);
-// 	if (axis == 'H')
-// 	{
-// 		dot->screen_ex = (dot->flag_x + 1) * info->tile_size;
-// 		dot->screen_ey = (dot->flag_y * info->tile_size);
-// 	}
-// 	else if (axis == 'V')
-// 	{
-// 		dot->screen_ex = dot->flag_x * info->tile_size;
-// 		dot->screen_ey = (dot->flag_y + 1) * info->tile_size;
-// 	}
-// 	apply_angle(info, dot);
-// }
+	x = flag_x * info->tile_size;
+	y = flag_y * info->tile_size;
+	if (coord == 'x')
+	{
+		x *= info->mode;
+		y *= info->mode;
+		return (x * cos(info->angle) - y * sin(info->angle));
+	}
+	else if (coord == 'y')
+		return (((x * sin(info->angle) + y * cos(info->angle)) * \
+					(cos(info->angle_v) + sin(info->angle_v))) - \
+					(info->tab[flag_y][flag_x] * info->z_scale) * \
+					cos(info->angle_v));
+	return (0);
+}
 
 void	get_render_info(t_info *info, t_dot *dot, char axis)
 {
-	dot->screen_bx = 	(
-							(dot->flag_x * cos(info->angle_h)) - \
-							(dot->flag_y * sin(info->angle_h))
-						) * info->tile_size * info->mode;
-	dot->screen_by = 	(
-							(dot->flag_x * sin(info->angle_h)) + \
-							(dot->flag_y * cos(info->angle_h)) - \
-							info->tab[dot->flag_y][dot->flag_x] * info->z_scale) * \
-							info->tile_size;
+	dot->screen_bx = get_adj_coord(dot->flag_x, dot->flag_y, info, 'x');
+	dot->screen_by = get_adj_coord(dot->flag_x, dot->flag_y, info, 'y');
 	if (axis == 'H')
 	{
-		dot->screen_ex = (((dot->flag_x + 1) * cos(info->angle_h)) - \
-							(dot->flag_y * sin(info->angle_h))) \
-							* info->tile_size * info->mode;
-		dot->screen_ey = (((dot->flag_x + 1) * sin(info->angle_h)) + \
-							((dot->flag_y - info->tab[dot->flag_y][dot->flag_x + 1] * info->z_scale) * cos(info->angle_h))) * \
-							info->tile_size;
+		dot->screen_ex = get_adj_coord(dot->flag_x + 1, dot->flag_y, info, 'x');
+		dot->screen_ey = get_adj_coord(dot->flag_x + 1, dot->flag_y, info, 'y');
 	}
 	else if (axis == 'V')
 	{
-		dot->screen_ex = ((dot->flag_x * cos(info->angle_h)) - \
-							((dot->flag_y + 1) * sin(info->angle_h))) \
-							* info->tile_size * info->mode;
-		dot->screen_ey = ((dot->flag_x * sin(info->angle_h)) + \
-							(((dot->flag_y + 1) - \
-							info->tab[dot->flag_y + 1][dot->flag_x] * info->z_scale) * cos(info->angle_h))) \
-							* info->tile_size;
+		dot->screen_ex = get_adj_coord(dot->flag_x, dot->flag_y + 1, info, 'x');
+		dot->screen_ey = get_adj_coord(dot->flag_x, dot->flag_y + 1, info, 'y');
 	}
-	dot->screen_bx += info->offset_x;
-	dot->screen_by += info->offset_y;
-	dot->screen_ex += info->offset_x;
-	dot->screen_ey += info->offset_y;	
-	// apply_angle(info, dot);
+	apply_offset(info, dot);
 }
