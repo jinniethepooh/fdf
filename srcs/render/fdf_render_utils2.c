@@ -12,23 +12,3 @@ void	recenter(t_info *info)
 	info->offset_x = (WIDTH_WIN - delta_x) / 2;
 	info->offset_y = (HEIGHT_WIN - delta_y) / 2;
 }
-
-// ----- FOR 2D ----- //
-// void	get_render_info_2d(t_info *info, t_dot *dot, char axis)
-// {
-// 	info->tile_size *= 2;
-// 	dot->screen_bx = dot->flag_x * info->tile_size;
-// 	dot->screen_by = dot->flag_y * info->tile_size;
-// 	if (axis == 'H')
-// 	{
-// 		dot->screen_ex = (dot->flag_x + 1) * info->tile_size;
-// 		dot->screen_ey = dot->flag_y * info->tile_size;
-// 	}
-// 	else if (axis == 'V')
-// 	{
-// 		dot->screen_ex = dot->flag_x * info->tile_size;
-// 		dot->screen_ey = (dot->flag_y + 1) * info->tile_size;
-// 	}
-//     apply_offset(info, dot);
-// 	// apply_angle(info, dot);
-// }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_parse.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:52 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 23:20:52 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/15 22:53:06 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,19 +29,36 @@ char	*read_map(t_info *info)
 	return (tmp);
 }
 
-void	matrix_realloc(t_info *info)
+void	matrix_realloc_info(t_info *info)
 {
 	int	i;
 
 	info->tab = (int **)malloc(sizeof(int *) * info->row);
 	if (!info->tab)
-		error_msg_matrix(info, -1);
+		error_msg_matrix_info(info, -1);
 	i = 0;
 	while (i < info->row)
 	{
 		info->tab[i] = (int *)malloc(sizeof(int) * info->col);
 		if (!info->tab[i])
-			error_msg_matrix(info, i);
+			error_msg_matrix_info(info, i);
+		i++;
+	}
+}
+
+void	matrix_realloc_color(t_info *info)
+{
+	int	i;
+
+	info->tabc = (int **)malloc(sizeof(int *) * info->row);
+	if (!info->tabc)
+		error_msg_matrix_color(info, -1);
+	i = 0;
+	while (i < info->row)
+	{
+		info->tabc[i] = (int *)malloc(sizeof(int) * info->col);
+		if (!info->tabc[i])
+			error_msg_matrix_color(info, i);
 		i++;
 	}
 }
@@ -69,34 +86,36 @@ char	*get_matrix_row_col(t_info *info)
 
 void	get_matrix_info(t_info *info)
 {
-	t_counter	tmp;
+	t_counter	t;
 
-	tmp.tmp = read_map(info);
-	if (!tmp.tmp)
-		error_msg_matrix(info, -1);
-	tmp.i = 0;
-	tmp.y = 0;
-	while (tmp.tmp[tmp.i] && tmp.y < info->row)
+	t.tmp = read_map(info);
+	if (!t.tmp)
+		error_msg_matrix_info(info, -1);
+	t.i = 0;
+	t.y = 0;
+	while (t.tmp[t.i] && t.y < info->row)
 	{
-		tmp.x = 0;
-		while (tmp.tmp[tmp.i] && tmp.tmp[tmp.i] != '\n' && tmp.x < info->col)
+		t.x = 0;
+		while (t.tmp[t.i] && t.tmp[t.i] != '\n' && t.x < info->col)
 		{
-			if (ft_isspace(tmp.tmp[tmp.i]) || !ft_isvalidchar(tmp.tmp[tmp.i]))
-				tmp.i++;
-			info->tab[tmp.y][tmp.x] = ft_atoi(&tmp.tmp[tmp.i]);
-			tmp.i += loop_matrix(&tmp.tmp[tmp.i]);
-			tmp.x++;
+			if (ft_isspace(t.tmp[t.i]) || !ft_isvalidchar(t.tmp[t.i]))
+				t.i++;
+			info->tab[t.y][t.x] = ft_atoi(&t.tmp[t.i]);
+			// t.i += loop_matrix(&t.tmp[t.i]);
+			t.i += get_matrix_color(info, &t, t.i);
+			t.x++;
 		}
-		tmp.i++;
-		tmp.y++;
+		t.i++;
+		t.y++;
 	}
-	free(tmp.tmp);
+	free(t.tmp);
 }
 
 void	matrix_init(t_info *info)
 {
 	get_matrix_row_col(info);
-	matrix_realloc(info);
+	matrix_realloc_info(info);
+	matrix_realloc_color(info);
 	get_matrix_info(info);
 	recenter(info);
 }

@@ -6,7 +6,7 @@
 /*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/03 17:55:25 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/14 23:33:49 by jinnie           ###   ########.fr       */
+/*   Updated: 2022/06/16 01:07:05 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	fdf_instruction(t_info *info)
 {
 	mlx_string_put(info->mlx, info->mlx_win, 5, 25, 0xFFFFFF, "=== FDF ===");
 	mlx_string_put(info->mlx, info->mlx_win, 5, 50, 0xFFFFFF, "MODE:");
-	mlx_string_put(info->mlx, info->mlx_win, 5, 75, 0xFFFFFF, "i (iso), p (parallel)");
+	mlx_string_put(info->mlx, info->mlx_win, 10, 75, 0xFFFFFF, "i (iso), p (parallel)");
 	mlx_string_put(info->mlx, info->mlx_win, 5, 100, 0xFFFFFF, "MOVE: arrow - up, left, right, down");
 	mlx_string_put(info->mlx, info->mlx_win, 5, 125, 0xFFFFFF, "ZOOM: scroll mouse");
 	mlx_string_put(info->mlx, info->mlx_win, 5, 150, 0xFFFFFF, "ROTATE:");
-	mlx_string_put(info->mlx, info->mlx_win, 5, 175, 0xFFFFFF, "left - a, right - d,");
-	mlx_string_put(info->mlx, info->mlx_win, 5, 200, 0xFFFFFF, "up - w, down - s");
+	mlx_string_put(info->mlx, info->mlx_win, 10, 175, 0xFFFFFF, "left - a, right - d,");
+	mlx_string_put(info->mlx, info->mlx_win, 10, 200, 0xFFFFFF, "up - w, down - s");
 	mlx_string_put(info->mlx, info->mlx_win, 5, 220, 0xFFFFFF, "RESET: r");
 }
 

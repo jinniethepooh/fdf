@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_event_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 22:05:43 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 18:50:29 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/16 00:36:59 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,6 @@ void	clear_image(t_info *info)
 
 int	close_window(t_info *info)
 {
-	free_matrix(info, info->row - 1);
+	free_matrix_color(info, info->row - 1);
 	exit(0);
 }

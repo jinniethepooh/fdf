@@ -6,7 +6,7 @@
 /*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/04 23:41:48 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/14 23:32:34 by jinnie           ###   ########.fr       */
+/*   Updated: 2022/06/16 00:37:22 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void	key_move_event(int keycode, t_info *info)
 void	key_steep_event(int keycode, t_info *info)
 {
 	if (keycode == PLUS_KEY)
-		info->z_scale -= 0.25;
+		info->z_scale -= 0.1;
 	if (keycode == MINUS_KEY)
-		info->z_scale += 0.25;
+		info->z_scale += 0.1;
 }
 
 void	key_rotate_event(int keycode, t_info *info)

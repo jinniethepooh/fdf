@@ -6,7 +6,7 @@
 /*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/15 01:18:22 by jinnie           ###   ########.fr       */
+/*   Updated: 2022/06/16 01:01:31 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@
 # include "../libft/libft.h"
 
 //	----- DEFAULT RESOLUTION ----- //
-# define WIDTH_WIN 1400
-# define HEIGHT_WIN 800
+# define WIDTH_WIN 1500
+# define HEIGHT_WIN 1000
 
 
 //	----- FOR KEYBOARD EVENT ----- //
@@ -74,6 +74,7 @@ typedef struct s_info
 	int		offset_y;
 	int		accum_x;
 	int		accum_y;
+	
 	int		**tab;
 	int		**tabc;
 
@@ -114,6 +115,8 @@ void	matrix_init(t_info *info);
 
 void	fdf_instruction(t_info *info);
 int		loop_matrix(char *s);
+int		get_matrix_color(t_info *info, t_counter *t, int index);
+int		get_hex_index(char c);
 int		get_file_len(char *fdf_name);
 
 // ----- RENDER ----- //
@@ -130,6 +133,7 @@ int		set_color(t_info *info, t_dot *dot, int x, int y);
 // ----- VALID CHECKER ----- //
 int		ft_isspace(char c);
 int		ft_isvalidchar(char c);
+int		ft_ishex(char *s);
 void	ft_isvalidfd(char *s);
 
 // ----- EVENT ----- //
@@ -141,12 +145,14 @@ void	error_msg_input_missing(void);
 void	error_msg_invalid_fd(void);
 void	error_msg_mlx(t_info *info);
 void	error_msg_img(t_info *info);
-void	error_msg_matrix(t_info *info, int index);
+void	error_msg_matrix_info(t_info *info, int index);
+void	error_msg_matrix_color(t_info *info, int index);
 
 // ----- FREE ----- //
 void	free_mlx_win(t_info *info);
 void	free_img(t_info *info);
-void	free_matrix(t_info *info, int index);
+void	free_matrix_info(t_info *info, int index);
+void	free_matrix_color(t_info *info, int index);
 int		close_window(t_info *info);
 
 #endif

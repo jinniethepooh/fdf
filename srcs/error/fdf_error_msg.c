@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_error_msg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 22:12:05 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/11 23:24:41 by cchetana         ###   ########.fr       */
+/*   Updated: 2022/06/15 12:18:45 by jinnie           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,16 @@ void	error_msg_img(t_info *info)
 	exit(0);
 }
 
-void	error_msg_matrix(t_info *info, int index)
+void	error_msg_matrix_info(t_info *info, int index)
 {
-	free_matrix(info, index);
+	free_matrix_info(info, index);
 	ft_putstr_fd("[ERROR] could not malloc map", 2);
+	exit(0);
+}
+
+void	error_msg_matrix_color(t_info *info, int index)
+{
+	free_matrix_color(info, index);
+	ft_putstr_fd("[ERROR] could not malloc map color", 2);
 	exit(0);
 }
