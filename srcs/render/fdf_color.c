@@ -3,32 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_color.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/05 20:19:09 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/16 01:07:51 by jinnie           ###   ########.fr       */
+/*   Created: 2022/06/16 03:10:46 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/16 03:12:49 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int get_light(int start, int end, double percentage)
+static int	get_light(int start, int end, double ratio)
 {
-    return ((int)((1 - percentage) * start + percentage * end));
+	return ((int)((1 - ratio) * start + ratio * end));
 }
 
-int get_color(t_dot *dot)
+static int	get_color(t_dot *dot)
 {
-    int     red;
-    int     green;
-    int     blue;
-    double  percentage;
+	int		red;
+	int		green;
+	int		blue;
+	double	ratio;
 
-	percentage = fabs((dot->screen_ey - dot->screen_by) / dot->distance);
-    red = get_light((0xFFE5CC >> 16) & 0xFF, (0xFF00000 >> 16) & 0xFF, percentage);
-    green = get_light((0xFFE5CC >> 8) & 0xFF, (0xFF00000 >> 8) & 0xFF, percentage);
-    blue = get_light(0xFFE5CC & 0xFF, 0xFF00000 & 0xFF, percentage);
-    return ((red << 16) | (green << 8) | blue);
+	ratio = fabs((dot->screen_ey - dot->screen_by) / dot->distance);
+	red = get_light((0xFFE5CC >> 16) & 0xFF, (0xFF00000 >> 16) & 0xFF, ratio);
+	green = get_light((0xFFE5CC >> 8) & 0xFF, (0xFF00000 >> 8) & 0xFF, ratio);
+	blue = get_light(0xFFE5CC & 0xFF, 0xFF00000 & 0xFF, ratio);
+	return ((red << 16) | (green << 8) | blue);
 }
 
 int	set_color(t_info *info, t_dot *dot, int x, int y)

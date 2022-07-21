@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/03 17:55:25 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/16 01:07:05 by jinnie           ###   ########.fr       */
+/*   Created: 2022/06/16 03:21:18 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/16 03:21:25 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,19 @@ void	fdf_instruction(t_info *info)
 {
 	mlx_string_put(info->mlx, info->mlx_win, 5, 25, 0xFFFFFF, "=== FDF ===");
 	mlx_string_put(info->mlx, info->mlx_win, 5, 50, 0xFFFFFF, "MODE:");
-	mlx_string_put(info->mlx, info->mlx_win, 10, 75, 0xFFFFFF, "i (iso), p (parallel)");
-	mlx_string_put(info->mlx, info->mlx_win, 5, 100, 0xFFFFFF, "MOVE: arrow - up, left, right, down");
-	mlx_string_put(info->mlx, info->mlx_win, 5, 125, 0xFFFFFF, "ZOOM: scroll mouse");
-	mlx_string_put(info->mlx, info->mlx_win, 5, 150, 0xFFFFFF, "ROTATE:");
-	mlx_string_put(info->mlx, info->mlx_win, 10, 175, 0xFFFFFF, "left - a, right - d,");
-	mlx_string_put(info->mlx, info->mlx_win, 10, 200, 0xFFFFFF, "up - w, down - s");
-	mlx_string_put(info->mlx, info->mlx_win, 5, 220, 0xFFFFFF, "RESET: r");
+	mlx_string_put(info->mlx, info->mlx_win, 10, 70, 0xFFFFFF, \
+			"i (iso), p (parallel)");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 95, 0xFFFFFF, \
+			"MOVE: arrow - up, left, right, down");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 120, 0xFFFFFF, \
+			"ZOOM: scroll mouse");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 145, 0xFFFFFF, "ROTATE:");
+	mlx_string_put(info->mlx, info->mlx_win, 10, 165, 0xFFFFFF, \
+			"left - a, right - d,");
+	mlx_string_put(info->mlx, info->mlx_win, 10, 185, 0xFFFFFF, \
+			"up - w, down - s");
+	mlx_string_put(info->mlx, info->mlx_win, 5, 210, 0xFFFFFF, "RESET: r");
 }
-
 
 void	set_img(t_info *info)
 {
@@ -51,7 +55,7 @@ void	set_info(t_info *info, char *s)
 	info->tile_size = 10;
 	info->z_scale = 1;
 	info->mode = 1.5;
-	info->angle = M_PI / 3;
+	info->angle_h = M_PI / 3;
 	info->angle_v = 0;
 	info->map_name = s;
 	info->accum_x = 0;
@@ -64,19 +68,16 @@ void	reset_info(t_info *info)
 	info->tile_size = 10;
 	info->z_scale = 1;
 	info->mode = 1.5;
-	info->angle = M_PI / 3;
+	info->angle_h = M_PI / 3;
 	info->angle_v = 0;
 	info->accum_x = 0;
 	info->accum_y = 0;
 	recenter(info);
 }
 
-void	get_pixel(t_info *info, int x, int y, int color)
+float	max_len(float x, float y)
 {
-	char	*dst;
-
-	if (x < 0 || x >= WIDTH_WIN || y < 0 || y >= HEIGHT_WIN)
-		return ;
-	dst = info->img_px_addr + (y * info->line_len + x * (info->bpp / 8));
-	*(unsigned int *)dst = color;
+	if (fabs(x) > fabs(y))
+		return (fabs(x));
+	return (fabs(y));
 }

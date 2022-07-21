@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fdf_valid_check.c                                  :+:      :+:    :+:   */
+/*   fdf_checker.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/11 03:20:15 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/16 00:36:44 by jinnie           ###   ########.fr       */
+/*   Created: 2022/06/16 03:07:19 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/16 03:07:32 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,18 +29,18 @@ void	ft_isvalidfd(char *s)
 
 	fd = open(s, O_RDONLY);
 	if (fd < 0)
-		error_msg_invalid_fd();
+		error_msg_invalid_input();
 	close(fd);
 }
 
-int		ft_ishex(char *s)
+int	ft_ishex(char *s)
 {
 	int		i;
 
 	i = 0;
 	if (s[i] && s[i] == '0')
 		i++;
-	else 
+	else
 		return (0);
 	if (s[i] && ft_tolower(s[i]) == 'x')
 		i++;

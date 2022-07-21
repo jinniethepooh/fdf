@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_mouse_event.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/05 23:37:28 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/14 22:47:08 by jinnie           ###   ########.fr       */
+/*   Created: 2022/06/16 03:19:06 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/16 03:20:20 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,8 @@
 
 int	mouse_press(int mousecode, int x, int y, t_info *info)
 {
-	int	tmp;
-
-	tmp = x;
-	tmp = y;
-	(void)tmp;
+	(void)x;
+	(void)y;
 	if (mousecode == EXIT_CLICK)
 		close_window(info);
 	if (mousecode == SCROLL_UP)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 23:50:58 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/15 23:51:38 by jinnie           ###   ########.fr       */
+/*   Created: 2022/06/16 03:20:33 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/16 03:20:46 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 	t_info	info;
 
 	if (argc != 2)
-		error_msg_input_missing();
+		error_msg_invalid_input();
 	set_info(&info, argv[1]);
 	matrix_init(&info);
 	map_render(&info);

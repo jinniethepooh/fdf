@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_keyboard_event.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/04 23:41:48 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/16 00:37:22 by jinnie           ###   ########.fr       */
+/*   Created: 2022/06/16 03:18:52 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/16 03:18:58 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	key_steep_event(int keycode, t_info *info)
 void	key_rotate_event(int keycode, t_info *info)
 {
 	if (keycode == ROTHP_KEY)
-		info->angle += (5 * M_PI / 180);
+		info->angle_h += (5 * M_PI / 180);
 	if (keycode == ROTHM_KEY)
-		info->angle -= (5 * M_PI / 180);
+		info->angle_h -= (5 * M_PI / 180);
 	if (keycode == ROTVP_KEY)
 		info->angle_v += (5 * M_PI / 180);
 	if (keycode == ROTVM_KEY)

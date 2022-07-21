@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_error_free.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/11 17:36:37 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/15 23:13:17 by jinnie           ###   ########.fr       */
+/*   Created: 2022/06/16 03:17:42 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/16 03:17:51 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,6 @@ void	free_matrix_info(t_info *info, int index)
 {
 	int	i;
 
-	// mlx_destroy_image(info->mlx, info->img_ptr);
-	// mlx_destroy_window(info->mlx, info->mlx_win);
 	free_img(info);
 	i = index;
 	while (i >= 0)

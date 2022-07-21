@@ -3,17 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/23 23:43:46 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/16 01:01:31 by jinnie           ###   ########.fr       */
+/*   Created: 2022/06/16 03:04:54 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/16 03:05:57 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FDF_H
 # define FDF_H
 
-# include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
 # include <fcntl.h>
@@ -21,12 +20,11 @@
 # include "../minilibx_macos/mlx.h"
 # include "../libft/libft.h"
 
-//	----- DEFAULT RESOLUTION ----- //
+// ----- DEFAULT RESOLUTION ----- //
 # define WIDTH_WIN 1500
-# define HEIGHT_WIN 1000
+# define HEIGHT_WIN 800
 
-
-//	----- FOR KEYBOARD EVENT ----- //
+// ----- FOR KEYBOARD EVENT ----- //
 # define ESC_KEY 53
 # define PLUS_KEY 27
 # define MINUS_KEY 24
@@ -44,8 +42,7 @@
 # define TWOD_KEY 19
 # define THREED_KEY 20
 
-
-//	----- FOR MOUSE EVENT ----- //
+// ----- FOR MOUSE EVENT ----- //
 # define LEFT_CLICK 1
 # define RIGHT_CLICK 2
 # define MIDDLE_CLICK 3
@@ -74,12 +71,12 @@ typedef struct s_info
 	int		offset_y;
 	int		accum_x;
 	int		accum_y;
-	
+
 	int		**tab;
 	int		**tabc;
 
 	float	z_scale;	
-	double	angle;
+	double	angle_h;
 	double	angle_v;
 }	t_info;
 
@@ -109,25 +106,28 @@ typedef struct s_counter
 }	t_counter;
 
 // ----- SET INFORMATION ----- //
+// ----- GENERAL ----- //
 void	set_info(t_info *info, char *s);
 void	reset_info(t_info *info);
-void	matrix_init(t_info *info);
-
 void	fdf_instruction(t_info *info);
-int		loop_matrix(char *s);
-int		get_matrix_color(t_info *info, t_counter *t, int index);
-int		get_hex_index(char c);
 int		get_file_len(char *fdf_name);
+
+// ----- MATRIX ----- //
+void	matrix_init(t_info *info);
+void	matrix_realloc_info(t_info *info);
+void	matrix_realloc_color(t_info *info);
+int		loop_matrix(char *s);
+int		get_hex_index(char c);
+int		get_matrix_color(t_info *info, t_counter *t, int index);
 
 // ----- RENDER ----- //
 float	max_len(float x, float y);
-void	get_pixel(t_info *info, int x, int y, int color);
-void	map_render(t_info *info);
-void	recenter(t_info *info);
-void	apply_offset(t_info *info, t_dot *dot);
-void	clear_image(t_info *info);
 void	get_distance(t_dot *dot);
 void	get_render_info(t_info *info, t_dot *dot, char axis);
+void	get_pixel(t_info *info, int x, int y, int color);
+void	recenter(t_info *info);
+void	map_render(t_info *info);
+void	clear_image(t_info *info);
 int		set_color(t_info *info, t_dot *dot, int x, int y);
 
 // ----- VALID CHECKER ----- //
@@ -141,8 +141,7 @@ int		key_press(int keycode, t_info *info);
 int		mouse_press(int mousecode, int x, int y, t_info *info);
 
 // ----- ERROR MESSAGE ----- //
-void	error_msg_input_missing(void);
-void	error_msg_invalid_fd(void);
+void	error_msg_invalid_input(void);
 void	error_msg_mlx(t_info *info);
 void	error_msg_img(t_info *info);
 void	error_msg_matrix_info(t_info *info, int index);

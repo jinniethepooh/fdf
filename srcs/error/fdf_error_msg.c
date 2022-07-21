@@ -3,24 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_error_msg.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/10 22:12:05 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/15 12:18:45 by jinnie           ###   ########.fr       */
+/*   Created: 2022/06/16 03:18:02 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/16 03:18:17 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void	error_msg_input_missing(void)
+void	error_msg_invalid_input(void)
 {
 	ft_putstr_fd("[ERROR] input .fdf file [ ./fdf <filename>.fdf ]", 2);
-	exit(0);
-}
-
-void	error_msg_invalid_fd(void)
-{
-	ft_putstr_fd("[ERROR] invalid input file", 2);
 	exit(0);
 }
 
@@ -42,13 +36,13 @@ void	error_msg_img(t_info *info)
 void	error_msg_matrix_info(t_info *info, int index)
 {
 	free_matrix_info(info, index);
-	ft_putstr_fd("[ERROR] could not malloc map", 2);
+	ft_putstr_fd("[ERROR] could not malloc", 2);
 	exit(0);
 }
 
 void	error_msg_matrix_color(t_info *info, int index)
 {
 	free_matrix_color(info, index);
-	ft_putstr_fd("[ERROR] could not malloc map color", 2);
+	ft_putstr_fd("[ERROR] could not malloc", 2);
 	exit(0);
 }

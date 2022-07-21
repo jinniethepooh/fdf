@@ -3,31 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   fdf_render_utils.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+        */
+/*   By: cchetana <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/06/11 02:46:19 by cchetana          #+#    #+#             */
-/*   Updated: 2022/06/15 00:51:24 by jinnie           ###   ########.fr       */
+/*   Created: 2022/06/16 03:13:49 by cchetana          #+#    #+#             */
+/*   Updated: 2022/06/16 03:13:56 by cchetana         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-float	max_len(float x, float y)
-{
-	if (fabs(x) > fabs(y))
-		return (fabs(x));
-	return (fabs(y));
-}
-
-void	get_distance(t_dot *dot)
-{
-	dot->distance = max_len(dot->screen_ex - dot->screen_bx, \
-			dot->screen_ey - dot->screen_by);
-	dot->step_x = (dot->screen_ex - dot->screen_bx) / dot->distance;
-	dot->step_y = (dot->screen_ey - dot->screen_by) / dot->distance;
-}
-
-void	apply_offset(t_info *info, t_dot *dot)
+static void	apply_offset(t_info *info, t_dot *dot)
 {
 	dot->screen_bx += (info->offset_x + info->accum_x);
 	dot->screen_by += (info->offset_y + info->accum_y);
@@ -35,7 +20,7 @@ void	apply_offset(t_info *info, t_dot *dot)
 	dot->screen_ey += (info->offset_y + info->accum_y);
 }
 
-float	get_adj_coord(int flag_x, int flag_y, t_info *info, char coord)
+static float	get_adj_coord(int flag_x, int flag_y, t_info *info, char coord)
 {
 	float	x;
 	float	y;
@@ -46,10 +31,10 @@ float	get_adj_coord(int flag_x, int flag_y, t_info *info, char coord)
 	{
 		x *= info->mode;
 		y *= info->mode;
-		return (x * cos(info->angle) - y * sin(info->angle));
+		return (x * cos(info->angle_h) - y * sin(info->angle_h));
 	}
 	else if (coord == 'y')
-		return (((x * sin(info->angle) + y * cos(info->angle)) * \
+		return (((x * sin(info->angle_h) + y * cos(info->angle_h)) * \
 					(cos(info->angle_v) + sin(info->angle_v))) - \
 					(info->tab[flag_y][flag_x] * info->z_scale) * \
 					cos(info->angle_v));

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: cchetana <cchetana@student.42.fr>          +#+  +:+       +#+         #
+#    By: jinnie <jinnie@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/24 00:17:44 by cchetana          #+#    #+#              #
-#    Updated: 2022/06/11 19:00:21 by cchetana         ###   ########.fr        #
+#    Updated: 2022/06/16 03:02:57 by cchetana         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ $(NAME):
 	@echo "/// ----- fdf is served ----- ///"
 
 $(OBJS)%.o: $(SRCS)%.c
-	$(CC) $(CFLAGS) -c $< $(INCLUDES) -o $@
+	$(CFLAGS) -c $< $(INCLUDES) -o $@
 
 clean:
 	@make -C libft/ clean --silent
@@ -40,6 +40,7 @@ clean:
 
 fclean: 
 	@rm -rf $(NAME)
+	@rm -rf $(NAME).dSYM
 	@make -C libft/ fclean --silent
 
 re: fclean all
